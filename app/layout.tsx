@@ -8,8 +8,8 @@ import PlayerWrapper from "@/components/player/PlayerWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Clone YT Music",
-  description: "Clone Youtube Music",
+  title: "Minji's Portfolio",
+  description: "Minji's Portfolio",
 };
 
 export default async function RootLayout({
@@ -33,3 +33,5 @@ export default async function RootLayout({
     </html>
   );
 }
+
+

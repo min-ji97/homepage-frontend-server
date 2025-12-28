@@ -55,7 +55,9 @@ const Header = ({ children }) => {
 
   return (
     <header ref={headRef} className="relative overflow-y-auto w-full h-full">
-      {/* bgSection */}
+      
+      {/* 스크롤 하기 전 배경이 보이는 부분 */}
+      {/* bgSection
       <section className=" absolute top-0 w-full">
         <div className="relative h-[400px] w-full">
           <Image
@@ -70,9 +72,12 @@ const Header = ({ children }) => {
           <div className=" absolute h-[400px] top-0 bg-black opacity-40 w-full"></div>
           <div className=" absolute h-[400px] top-0 bg-gradient-to-t from-black w-full"></div>
         </div>
-      </section>
+      </section> */}
+
+      
+      {/* input창 주석 */}
       {/* searchSection */}
-      <section
+      {/* <section
         className={cn("sticky top-0 left-0 z-10", isScrolled && "bg-black")}
       >
         <PagePadding>
@@ -102,7 +107,7 @@ const Header = ({ children }) => {
             </article>
           </div>
         </PagePadding>
-      </section>
+      </section> */}
       <section className="relative">{children}</section>
     </header>
   );
