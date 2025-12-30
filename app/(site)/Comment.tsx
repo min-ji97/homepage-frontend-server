@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react'
+import { CgSpinner } from "react-icons/cg";
 
 /**
  * 방명록(Guestbook) 컴포넌트
@@ -46,7 +47,7 @@ const Comment = () => {
     setNickname("");
     setComment("");
     setPassword("");
-    fetchMessages(); //방명록 재업로드
+    await fetchMessages(); //방명록 재업로드
     setIsLoading(false);
 
   }
@@ -90,26 +91,33 @@ const Comment = () => {
           <div className='flex gap-2'>
             <input
               type="text"
-              placeholder="닉네임 (선택)"
+              placeholder="닉네임(선택)"
               value={nickname}
               onChange={(e) => setNickname(e.target.value)}
-              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-1/3 focus:outline-none focus:border-neutral-500"
+              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-full sm:w-1/3 min-w-[92px] focus:outline-none focus:border-neutral-500"
             />
             <input 
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="삭제용 비밀번호"
-              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-40 focus:outline-none focus:border-neutral-500"
+              placeholder="비밀번호"
+              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-full sm:w-1/3 min-w-[71px] focus:outline-none focus:border-neutral-500"
             />
           </div>
           
           <button 
             onClick={handleSubmit}
             disabled={isLoading}
-            className="px-6 py-2 bg-white text-black rounded-md font-medium hover:bg-neutral-200 transition-colors disabled:opacity-50"
+            className="w-full sm:w-auto min-w-[140px] px-6 py-2 bg-white text-black rounded-md font-medium flex items-center justify-center gap-2 hover:bg-neutral-200 whitespace-nowrap  transition-colors disabled:opacity-50"
           >
-            {isLoading ? "등록 중..." : "등록하기"}
+            {isLoading ? (
+              <>
+                <CgSpinner className='animate-spin' size={20} />
+                {/* <span>등록 중...</span> */}
+              </>
+              ):( 
+                "등록하기"
+              )}
           </button>
           </div>
       </div>

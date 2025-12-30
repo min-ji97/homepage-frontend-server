@@ -55,7 +55,6 @@ const Header = ({ children }) => {
 
   return (
     <header ref={headRef} className="relative overflow-y-auto w-full h-full">
-      
       {/* 스크롤 하기 전 배경이 보이는 부분 */}
       {/* bgSection
       <section className=" absolute top-0 w-full">

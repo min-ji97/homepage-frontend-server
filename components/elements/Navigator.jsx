@@ -1,13 +1,14 @@
 "use client";
 import React, { useEffect, useMemo , useState } from "react";
-import { GoHome } from "react-icons/go";
-import { FiPlus, FiMusic, FiCompass } from "react-icons/fi";
+// import { GoHome } from "react-icons/go";
+// import { FiPlus, FiMusic, FiCompass } from "react-icons/fi";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { dummyPlaylistArray } from "@/lib/dummyData";
-import PlayListNav from "./PlayListNav";
-import { useRouter } from "next/router";
+// import { dummyPlaylistArray } from "@/lib/dummyData";
+// import PlayListNav from "./PlayListNav";
+// import { useRouter } from "next/router";
+import { HiBriefcase, HiHome, HiIdentification, HiMail, HiOutlinePencilAlt } from "react-icons/hi";
 
 const Navigator = () => {
 
@@ -46,33 +47,33 @@ const Navigator = () => {
   const routes = useMemo(() => {
     return [
       {
-        icon: <GoHome size={24} />,
+        icon: <HiHome size={24} />,
         label: "Home",
         // isActive: pathname === "/",
         isActive: activeId === "home",
         href: "#home",
       },
       {
-        icon: <FiMusic size={24} />,
+        icon: <HiIdentification size={24} />,
         label: "Introduce",
         // isActive: pathname === "#introduce",
         isActive: activeId === "introduce",
         href: "#introduce",
       },
       {
-        icon: <FiCompass size={24} />,
+        icon: <HiBriefcase size={24} />,
         label: "Project",
         isActive: activeId === "project",
         href: "#project",
       },
       {
-        icon: <FiPlus size={24} />,
+        icon: <HiMail size={24} />,
         label: "Contact",
         isActive: activeId === "contact",
         href: "#contact",
       },
       {
-        icon: <FiPlus size={24} />,
+        icon: <HiOutlinePencilAlt size={24} />,
         label: "방명록",
         isActive: activeId === "comment",
         href: "#comment",

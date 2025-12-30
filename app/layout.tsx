@@ -7,9 +7,12 @@ import PlayerWrapper from "@/components/player/PlayerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Minji's Portfolio",
-  description: "Minji's Portfolio",
+export const metadata = {
+  title: "MINJI.log", 
+  description: "민지의 포트폴리오 사이트입니다.",
+  icons: {
+    icon: "/favicon.ico", 
+  },
 };
 
 export default async function RootLayout({

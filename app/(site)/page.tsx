@@ -206,10 +206,10 @@ const PortfolioPage = () => {
           className="min-h-screen flex flex-col justify-center items-center text-center py-20"
         >
           <div className="mb-12">
-            <div className="text-6xl md:text-8xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <div className="text-6xl md:text-8xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shine">
               MINJI&apos;s
             </div>
-            <div className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <div className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent bg-[length:200%_auto] animate-text-shine">
               Portfolio
             </div>
           </div>
@@ -219,9 +219,10 @@ const PortfolioPage = () => {
               프론트엔드 신입 개발자를 꿈꾸는 조민지 입니다.
             </h2>
             <div className="flex justify-center items-center gap-2 mt-8">
-              <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-              <span className="w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-75"></span>
-              <span className="w-2 h-2 bg-pink-400 rounded-full animate-pulse delay-150"></span>
+              {/* animate-pulse VS animate-bounce 고민*/}
+              <span className="w-2 h-2 bg-blue-400 rounded-full  animate-bounce [animation-delay:-0.3s]"></span>
+              <span className="w-2 h-2 bg-purple-400 rounded-full  delay-75 animate-bounce [animation-delay:-0.15s]"></span>
+              <span className="w-2 h-2 bg-pink-400 rounded-full  delay-150 animate-bounce"></span>
             </div>
           </div>
         </section>
@@ -265,7 +266,7 @@ const PortfolioPage = () => {
           {/* Certificate */}
           <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center gap-3">
-              <HiOutlineDocumentText size={40} />
+              {/* <HiOutlineDocumentText size={40} /> */}
               Certificate
             </h1>
             <div className="space-y-3 text-lg">
