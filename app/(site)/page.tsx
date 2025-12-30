@@ -118,7 +118,7 @@ const PortfolioPage = () => {
   const introduceRef = useRef<HTMLDivElement>(null);
   const projectRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
-  const guestbookRef = useRef<HTMLDivElement>(null);
+  const commentRef = useRef<HTMLDivElement>(null);
 
   const skillFront = [
     { value: "HTML5", icon: FaHtml5 },
@@ -443,8 +443,8 @@ const PortfolioPage = () => {
         <div className="bg-neutral-700" style={{ height: '1px', marginBottom: '50px' }}></div>
 
         <section 
-          id="guestbook"
-          ref={guestbookRef}>
+          id="comment"
+          ref={commentRef}>
             
           <Comment></Comment>
         </section>

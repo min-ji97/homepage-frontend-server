@@ -8,11 +8,13 @@ import React, { useEffect, useState } from 'react'
  */
 const Comment = () => {
 
+  const [ nickname , setNickname ] = useState("");
   const [comment, setComment] = useState("");
   const [password, setPassword] = useState("");
   const [commentList, setCommentList ] = useState<any[]>([]);
   const [isLoading, setIsLoading ] = useState(false);
 
+  // 방명록 보여주기
   const fetchMessages = async () => {
     const res = await fetch('/api/comment');
     const data = await res.json();
@@ -35,11 +37,13 @@ const Comment = () => {
     await fetch('/api/comment',{
       method: 'POST',
       body: JSON.stringify({
+        nickname : nickname,
         content: comment,
         password: password
       }),
     });
 
+    setNickname("");
     setComment("");
     setPassword("");
     fetchMessages(); //방명록 재업로드
@@ -47,6 +51,26 @@ const Comment = () => {
 
   }
   
+  // 메세지 삭제
+  const handleDelete = async( date : string ) => {
+    const inputPassword = prompt("비밀번호를 입력해주세요.");
+
+    if(!inputPassword) return;
+
+    const res = await fetch('/api/comment',{
+      method: 'DELETE',
+      body: JSON.stringify({ date, password:inputPassword })
+    });
+
+    if(res.ok){
+      alert('삭제되었습니다.');
+      fetchMessages();
+    }else{
+      const errorData = await res.json();
+      alert(errorData.error || "비밀번호가 틀렸거나 삭제에 실패하였습니다.");
+    }
+
+  }
 
 
 
@@ -63,13 +87,23 @@ const Comment = () => {
           className="w-full p-3 bg-neutral-800 border border-neutral-700 rounded-md focus:outline-none focus:border-neutral-500 transition-colors"
         />
         <div className="flex justify-between items-center gap-2">
-          <input 
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="삭제용 비밀번호"
-            className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-40 focus:outline-none focus:border-neutral-500"
-          />
+          <div className='flex gap-2'>
+            <input
+              type="text"
+              placeholder="닉네임 (선택)"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-1/3 focus:outline-none focus:border-neutral-500"
+            />
+            <input 
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="삭제용 비밀번호"
+              className="p-2 text-sm bg-neutral-800 border border-neutral-700 rounded-md text-white w-40 focus:outline-none focus:border-neutral-500"
+            />
+          </div>
+          
           <button 
             onClick={handleSubmit}
             disabled={isLoading}
@@ -89,6 +123,15 @@ const Comment = () => {
           commentList.map((item, idx) => {
             return(
               <div key={idx} className="p-4 bg-neutral-800/40 rounded-md border border-neutral-800">
+                <div className="flex justify-between items-center">
+                <span className="font-bold text-sm text-blue-400">{item.nickname || "익명"}</span>
+                <button 
+                  onClick={() => handleDelete(item.date)}
+                  className="text-[11px] text-neutral-600 hover:text-red-500 transition-colors"
+                >
+                  삭제
+                </button>
+              </div>
                 <p className="text-neutral-200 mb-2">{item.content}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] text-neutral-500">

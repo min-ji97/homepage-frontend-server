@@ -16,7 +16,7 @@ const Navigator = () => {
 
   // 스크롤 감지 로직 
   useEffect(()=>{
-    const sectionIds = ["home", "introduce", "project","contact","guestbook"];
+    const sectionIds = ["home", "introduce", "project","contact","comment"];
 
     const observerOptions = {
       root: null,
@@ -74,8 +74,8 @@ const Navigator = () => {
       {
         icon: <FiPlus size={24} />,
         label: "방명록",
-        isActive: activeId === "guestbook",
-        href: "#guestbook",
+        isActive: activeId === "comment",
+        href: "#comment",
       },
     ];
   // }, [pathname]);
