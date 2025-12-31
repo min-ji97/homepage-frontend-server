@@ -2,9 +2,36 @@ import { kv } from "@vercel/kv";
 import { NextResponse } from "next/server";
 
 // 코멘트 가져오기
-export async function GET(){
-    const messages = await kv.lrange('comment', 0 , -1);
-    return NextResponse.json(messages);
+export async function GET( request: Request ){
+
+    try{
+        const { searchParams } = new URL(request.url);
+        const page = parseInt(searchParams.get("page") || "1"); //댓글의 현재 페이지 가져오기?
+        const limit = 5; // 한 페이지에 보여줄 댓글 수
+        
+        const start = (page - 1) * limit ;
+        const end = start + limit - 1;
+
+        const messages = await kv.lrange('comment', start, end);
+        const total = await kv.llen('comment');
+
+        console.log( 'url => ' ,searchParams);
+        console.log(' 몇 페이지? => ' ,page);
+
+        return NextResponse.json({
+            messages: messages || [],
+            total: total,
+            totalPages: Math.ceil(total / limit )
+        });
+    }  catch(error) {
+        return NextResponse.json({ error: "Failed to fetch" }, { status : 500 });
+    }
+    
+
+    
+
+    // const messages = await kv.lrange('comment', 0 , -1);
+    // return NextResponse.json(messages);
 }
 
 export async function POST(request: Request) {

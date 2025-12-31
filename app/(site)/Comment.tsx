@@ -15,16 +15,22 @@ const Comment = () => {
   const [commentList, setCommentList ] = useState<any[]>([]);
   const [isLoading, setIsLoading ] = useState(false);
 
+  // 페이지네이션
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages ] = useState(1);
+
+
   // 방명록 보여주기
-  const fetchMessages = async () => {
-    const res = await fetch('/api/comment');
+  const fetchMessages = async (currentPage : number) => {
+    const res = await fetch(`/api/comment?page=${currentPage}`);
     const data = await res.json();
-    setCommentList(data || []);
+    setCommentList(data.messages || []);
+    setTotalPages(data.totalPages || 1);
   };
 
   useEffect(()=>{
-    fetchMessages();
-  },[]);
+    fetchMessages(page);
+  },[page]);
 
 
   // 코멘트 전송
@@ -47,9 +53,10 @@ const Comment = () => {
     setNickname("");
     setComment("");
     setPassword("");
-    await fetchMessages(); //방명록 재업로드
+    setPage(1);
+    await fetchMessages(1); //방명록 재업로드
     setIsLoading(false);
-
+    
   }
   
   // 메세지 삭제
@@ -65,7 +72,14 @@ const Comment = () => {
 
     if(res.ok){
       alert('삭제되었습니다.');
-      fetchMessages();
+
+      // 현재 페이지에서 모든 댓글 삭제했을 때 이전 페이지로 이동시켜주기
+      if(commentList.length === 1 && page > 1 ){
+        setPage(prev => prev - 1);
+      }else{
+        await fetchMessages(page);
+      }
+      
     }else{
       const errorData = await res.json();
       alert(errorData.error || "비밀번호가 틀렸거나 삭제에 실패하였습니다.");
@@ -128,18 +142,18 @@ const Comment = () => {
           <div className="text-sm text-neutral-400">등록된 방명록이 없습니다.</div>
         ):(
           //  방명록 존재
-          commentList.map((item, idx) => {
+          commentList.map((item) => {
             return(
-              <div key={idx} className="p-4 bg-neutral-800/40 rounded-md border border-neutral-800">
+              <div key={item.date} className="p-4 bg-neutral-800/40 rounded-md border border-neutral-800">
                 <div className="flex justify-between items-center">
-                <span className="font-bold text-sm text-blue-400">{item.nickname || "익명"}</span>
-                <button 
-                  onClick={() => handleDelete(item.date)}
-                  className="text-[11px] text-neutral-600 hover:text-red-500 transition-colors"
-                >
-                  삭제
-                </button>
-              </div>
+                  <span className="font-bold text-sm text-blue-400">{item.nickname || "익명"}</span>
+                  <button 
+                    onClick={() => handleDelete(item.date)}
+                    className="text-[11px] text-neutral-600 hover:text-red-500 transition-colors"
+                  >
+                    삭제
+                  </button>
+                </div>
                 <p className="text-neutral-200 mb-2">{item.content}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-[10px] text-neutral-500">
@@ -150,7 +164,45 @@ const Comment = () => {
             )
           })
         )}
-      
+         {/* 페이지네이션 버튼 */}
+         <div className="flex justify-center items-center gap-4 mt-8">
+          <button 
+              disabled={page === 1}
+              onClick={() => setPage(prev => prev - 1)}
+              className="px-3 py-1 bg-neutral-800 rounded-md transition-all 
+                        disabled:bg-transparent disabled:text-neutral-700 disabled:border-neutral-800 border border-transparent"
+            >
+            <span className="text-sm">‹</span>
+          </button>
+                  
+          <div className="flex gap-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+              <button
+                key={num}
+                onClick={() => setPage(num)}
+                className={`relative w-9 h-9 rounded-lg text-sm font-bold transition-all duration-300 ${
+                  page === num 
+                    ? "text-white shadow-lg scale-110" 
+                    : "text-neutral-500 hover:text-neutral-200"
+                }`}
+              >
+                {page === num && (
+                  <div className="absolute inset-0 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-lg shadow-[inset_0_0_8px_rgba(255,255,255,0.3)]" />
+                )}
+                <span className="relative z-10">{num}</span>
+              </button>
+            ))}
+          </div>
+
+          <button 
+            disabled={page === totalPages}
+            onClick={() => setPage(prev => prev + 1)}
+            className="px-3 py-1 bg-neutral-800 rounded-md transition-all 
+                        disabled:bg-transparent disabled:text-neutral-700 disabled:border-neutral-800 border border-transparent"
+            >
+            <span className="relative z-10 text-sm">›</span>
+          </button>
+        </div>
       </div>
     </section>
   )
