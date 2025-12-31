@@ -20,6 +20,13 @@ const Comment = () => {
   const [totalPages, setTotalPages ] = useState(1);
 
 
+  // 댓글 삭제 - 비밀번호 모달
+  const [ isDeleteModalOpen, setIsDeleteModalOpen ] = useState(false);
+  const [targetDate, setTargetDate] = useState("");
+  const [deletePassword, setDeletePassword] = useState("");
+  // 삭제 성공시 모달 문구 보여주기
+  const [ isSuccess , setIsSuccess ] = useState(false);
+
   // 방명록 보여주기
   const fetchMessages = async (currentPage : number) => {
     const res = await fetch(`/api/comment?page=${currentPage}`);
@@ -59,35 +66,47 @@ const Comment = () => {
     
   }
   
-  // 메세지 삭제
-  const handleDelete = async( date : string ) => {
-    const inputPassword = prompt("비밀번호를 입력해주세요.");
+  //  댓글 삭제 버튼 클릭 -> 모달 
+  const handleDeleteClick = (date: string) => {
+    setTargetDate(date);
+    setIsDeleteModalOpen(true);
+    setDeletePassword(""); // 이전 입력값 초기화
+  };
 
-    if(!inputPassword) return;
+  // 모달 -'삭제' 눌렀을 때 실제 실행되는 함수
+  const confirmDelete = async () => {
+    if (!deletePassword) return;
 
-    const res = await fetch('/api/comment',{
+    const res = await fetch('/api/comment', {
       method: 'DELETE',
-      body: JSON.stringify({ date, password:inputPassword })
+      body: JSON.stringify({ date: targetDate, password: deletePassword })
     });
 
-    if(res.ok){
-      alert('삭제되었습니다.');
+    if (res.ok) {
+      setIsSuccess(true); // 삭제 성공 모달 보여주기
 
-      // 현재 페이지에서 모든 댓글 삭제했을 때 이전 페이지로 이동시켜주기
-      if(commentList.length === 1 && page > 1 ){
-        setPage(prev => prev - 1);
-      }else{
-        await fetchMessages(page);
-      }
-      
-    }else{
+      setTimeout(async () => {
+        setIsDeleteModalOpen(false); //모달 닫기
+        setIsSuccess(false); // 성공 모달 닫기
+        setDeletePassword(""); // 초기화
+  
+        // 현재 페이지 유지 
+        if (commentList.length === 1 && page > 1) {
+          setPage(prev => prev - 1);
+        } else {
+          //현재 페이지에서 모든 댓글 삭제했을 때 이전 페이지로 이동시켜주기
+          if(commentList.length === 1 && page > 1 ){
+            setPage(prev => prev - 1);
+          }else{
+            await fetchMessages(page);
+          }
+        }
+      }, 1500); 
+    } else {
       const errorData = await res.json();
-      alert(errorData.error || "비밀번호가 틀렸거나 삭제에 실패하였습니다.");
+      alert(errorData.error || "비밀번호가 틀렸습니다.");
     }
-
-  }
-
-
+  };
 
   return (
     <section className="w-full p-4 border border-neutral-800 rounded-lg bg-neutral-900/50">
@@ -144,11 +163,12 @@ const Comment = () => {
           //  방명록 존재
           commentList.map((item) => {
             return(
+              
               <div key={item.date} className="p-4 bg-neutral-800/40 rounded-md border border-neutral-800">
                 <div className="flex justify-between items-center">
                   <span className="font-bold text-sm text-blue-400">{item.nickname || "익명"}</span>
                   <button 
-                    onClick={() => handleDelete(item.date)}
+                    onClick={() => handleDeleteClick(item.date)}
                     className="text-[11px] text-neutral-600 hover:text-red-500 transition-colors"
                   >
                     삭제
@@ -160,6 +180,8 @@ const Comment = () => {
                     {new Date(item.date).toLocaleString()}
                   </span>
                 </div>
+
+                
               </div>
             )
           })
@@ -204,6 +226,43 @@ const Comment = () => {
           </button>
         </div>
       </div>
+
+      {isDeleteModalOpen && (
+  <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md p-4">
+    <div className="w-full max-w-xs bg-neutral-900 border border-neutral-800 p-6 rounded-2xl shadow-2xl">
+      
+      {/* 성공했을 때만 이 내용이 보이고, 아니면 원래 입력창이 보여요! */}
+      {isSuccess ? (
+        <div className="py-8 text-center animate-in fade-in zoom-in duration-300">
+          <p className="text-white font-bold text-lg">삭제되었습니다! ✨</p>
+        </div>
+      ) : (
+        <>
+          <h3 className="text-lg font-bold mb-4 text-white">비밀번호 확인</h3>
+          <input 
+            type="password"
+            placeholder="비밀번호 입력"
+            value={deletePassword}
+            onChange={(e) => setDeletePassword(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && confirmDelete()}
+            className="w-full p-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-purple-500 mb-4"
+            autoFocus
+          />
+          <div className="flex gap-2">
+            <button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-2 bg-neutral-800 text-neutral-400 rounded-lg">
+              취소
+            </button>
+            <button onClick={confirmDelete} className="flex-1 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg font-bold">
+              삭제하기
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  </div>
+)}
+
+      
     </section>
   )
 }

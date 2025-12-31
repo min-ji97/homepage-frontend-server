@@ -15,9 +15,6 @@ export async function GET( request: Request ){
         const messages = await kv.lrange('comment', start, end);
         const total = await kv.llen('comment');
 
-        console.log( 'url => ' ,searchParams);
-        console.log(' 몇 페이지? => ' ,page);
-
         return NextResponse.json({
             messages: messages || [],
             total: total,
