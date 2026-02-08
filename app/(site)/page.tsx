@@ -19,6 +19,7 @@ import {
 } from "react-icons/fa";
 import { HiOutlineDocumentText } from "react-icons/hi";
 import { MdEmail } from "react-icons/md";
+import { link } from "fs";
 
 // Skill Component
 const SkillComponent = ({ value, icon: Icon }: { value: string; icon?: React.ComponentType<{ size?: number; className?: string }> }) => {
@@ -147,36 +148,42 @@ const PortfolioPage = () => {
       pjName: "Momentum",
       dataType: "js",
       className: "project-content--js",
+      pjLink: "/projects/momentum",
     },
     {
       img: "img/portfolio/thumbnail.png",
       pjName: "Portfolio React",
       dataType: "react",
       className: "project-content--react",
+      pjLink: "/projects/portfolio",
     },
     {
       img: "img/naver/thumbnail.png",
       pjName: "네이버 클론코딩",
       dataType: "js",
       className: "project-content--js",
+      pjLink: "/projects/naver",
     },
     {
       img: "img/starbucks/thumbnail.png",
       pjName: "스타벅스 클론코딩",
       dataType: "js",
       className: "project-content--js",
+      pjLink: "/projects/starbucks",
     },
     {
       img: "img/pet_board/thumbnail.png",
       pjName: "CRUD 게시판 Pet Talk!",
       dataType: "vue",
       className: "project-content--vue",
+      pjLink: "/projects/pet-talk",
     },
     {
       img: "img/noorida/thumbnail.png",
       pjName: "졸업작품 : 누리다",
       dataType: "vue",
       className: "project-content--vue",
+      pjLink: "/projects/noorida",
     },
   ];
 
@@ -255,10 +262,13 @@ const PortfolioPage = () => {
                 <span className="text-neutral-400">이메일:</span>
                 <span>whalswl576@gmail.com</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-row items-center gap-3">
                 <span className="text-neutral-400">학력:</span>
-                <span>남서울대학교 컴퓨터소프트웨어학과 졸업</span>
-                {/* <span>코리아IT 이수</span> */}
+                <div className="flex flex-col">
+                  <span>남서울대학교 컴퓨터소프트웨어학과 졸업 <span className="text-neutral-500"> 2016.02 ~ 2020.02</span></span>
+                  <span>코리아IT 아카데미 이수<span className="text-neutral-500"> 2025.06 ~ 2025.12</span></span>
+                </div>
+                
               </div>
             </div>
           </div>
@@ -281,6 +291,9 @@ const PortfolioPage = () => {
               </div>
               <div className="px-4 py-3 bg-neutral-900 rounded-lg border border-neutral-800">
                 리눅스 마스터
+              </div>
+              <div className="px-4 py-3 bg-neutral-900 rounded-lg border border-neutral-800">
+                AZ-900 : Microsoft Azure Fundamentals
               </div>
             </div>
           </div>
@@ -353,21 +366,24 @@ const PortfolioPage = () => {
             {/* Project Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={filterKey}>
               {filteredProjects.map((project, index) => (
-                <div
+                <Link 
+                  href={`${project.pjLink}`}
                   key={`${project.pjName}-${index}-${filterKey}`}
-                  className="opacity-0 animate-fade-in-up"
+                  className="opacity-0 animate-fade-in-up block group" // group 클래스 추가 (호버 효과용)
                   style={{ 
                     animationDelay: `${index * 0.1}s`,
                     animationFillMode: 'forwards'
                   }}
                 >
-                  <ProjectComponent
-                    img={project.img}
-                    pjName={project.pjName}
-                    dataType={project.dataType}
-                    className={project.className}
-                  />
-                </div>
+                  <div className="transition-transform duration-300 group-hover:-translate-y-2">
+                    <ProjectComponent
+                      img={project.img}
+                      pjName={project.pjName}
+                      dataType={project.dataType}
+                      className={project.className}
+                    />
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
