@@ -29,7 +29,7 @@ const StarbucksDetail = () => {
             STARBUCKS CLONE
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed font-light">
-            "웹 표준을 준수하며, <span className="text-green-400 font-medium">GSAP와 Swiper.js</span>를 활용하여 고도화된 인터랙티브 UI와 애니메이션 구현 능력을 다졌습니다."
+            웹 표준을 준수하며, <span className="text-green-400 font-medium">GSAP와 Swiper.js</span>를 활용하여 고도화된 인터랙티브 UI와 애니메이션 구현 능력을 다졌습니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (

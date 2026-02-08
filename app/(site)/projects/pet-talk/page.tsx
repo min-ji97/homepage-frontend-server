@@ -77,7 +77,7 @@ const PetTalkDetail = () => {
             </div>
           </div>
           <p className="bg-neutral-900/50 p-8 rounded-3xl border border-neutral-800 text-neutral-400 leading-relaxed italic">
-            "게시글 목록 및 상세 보기는 <strong>재사용 가능한 Component</strong>로 설계하여 코드 중복을 최소화하고 유지보수 효율을 높였습니다."
+            게시글 목록 및 상세 보기는 <strong>재사용 가능한 Component</strong>로 설계하여 코드 중복을 최소화하고 유지보수 효율을 높였습니다.
           </p>
         </section>
 
@@ -90,7 +90,7 @@ const PetTalkDetail = () => {
             </div>
             <div className="space-y-6 text-neutral-400">
               <p>• <strong>Tiptap 에디터 도입</strong>을 통해 풍부한 텍스트 편집 환경을 제공하고, 모든 콘텐츠를 정형화된 HTML 데이터로 관리합니다.</p>
-              <p>• <strong>'효율적인 이미지 자산 관리'</strong>에 대한 기술적 고민을 바탕으로, 이미지를 직접 DB에 저장하는 대신 <strong>Multer를 활용한 서버 저장 및 DB 경로 매핑 방식</strong>을 채택하여 최적의 성능을 확보했습니다.</p>
+              <p>• <strong>효율적인 이미지 자산 관리</strong>에 대한 기술적 고민을 바탕으로, 이미지를 직접 DB에 저장하는 대신 <strong>Multer를 활용한 서버 저장 및 DB 경로 매핑 방식</strong>을 채택하여 최적의 성능을 확보했습니다.</p>
             </div>
           </div>
         </section>
