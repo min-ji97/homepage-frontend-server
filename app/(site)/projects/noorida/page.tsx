@@ -31,8 +31,8 @@ const NooridaDetail = () => {
           </h1>
           {/* max-w-3xl */}
           <p className="text-lg md:text-xl text-neutral-400 max-w-4xl mx-auto leading-relaxed font-light">
-            "사용자의 실시간 위치 정보를 기반으로 지역 소식을 공유하는 
-            <span className="text-blue-400 font-medium"> 위치기반 소셜 네트워크 서비스</span>입니다."
+            사용자의 실시간 위치 정보를 기반으로 지역 소식을 공유하는 
+            <span className="text-blue-400 font-medium"> 위치기반 소셜 네트워크 서비스</span>입니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (

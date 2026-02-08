@@ -28,7 +28,7 @@ const PortfolioDetail = () => {
             Portfolio Evolution
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed font-light">
-            "단순한 결과물을 넘어, <span className="text-purple-400 font-medium">AI와 협업하며 기술적 한계를 돌파</span>하는 과정을 담은 저의 성장 기록입니다."
+            단순한 결과물을 넘어, <span className="text-purple-400 font-medium">AI와 협업하며 기술적 한계를 돌파</span>하는 과정을 담은 저의 성장 기록입니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (

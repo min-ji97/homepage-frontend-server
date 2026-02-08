@@ -27,8 +27,8 @@ const PetTalkDetail = () => {
             PET TALK!
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed font-light">
-            "반려인들이 자유롭게 일상을 공유하고 유용한 정보를 교환할 수 있는 커뮤니티 공간을 목표로 제작했습니다. 
-            <span className="text-purple-400 font-medium"> 사용자 경험(UX) 중심의 CRUD 기능 구현</span>에 집중했습니다."
+            반려인들이 자유롭게 일상을 공유하고 유용한 정보를 교환할 수 있는 커뮤니티 공간을 목표로 제작했습니다. 
+            <span className="text-purple-400 font-medium"> 사용자 경험(UX) 중심의 CRUD 기능 구현</span>에 집중했습니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (

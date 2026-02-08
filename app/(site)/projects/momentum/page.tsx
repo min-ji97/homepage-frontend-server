@@ -30,8 +30,8 @@ const MomentumDetail = () => {
             MOMENTUM DASHBOARD
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed font-light">
-            "바닐라 자바스크립트를 활용하여 <span className="text-orange-400 font-medium">데이터 지속성(LocalStorage)</span>과 
-            외부 API 연동을 포함한 인터랙티브 대시보드를 구현했습니다."
+            바닐라 자바스크립트를 활용하여 <span className="text-orange-400 font-medium">데이터 지속성(LocalStorage)</span>과 
+            외부 API 연동을 포함한 인터랙티브 대시보드를 구현했습니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (

@@ -30,8 +30,8 @@ const NaverDetail = () => {
             NAVER PORTAL CLONE
           </h1>
           <p className="text-lg md:text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed font-light">
-            "포털 사이트의 복잡한 레이아웃을 정교하게 분석하고, 
-            <span className="text-green-400 font-medium"> 공공데이터 API를 활용한 실시간 데이터 바인딩</span>을 구현했습니다."
+            포털 사이트의 복잡한 레이아웃을 정교하게 분석하고, 
+            <span className="text-green-400 font-medium"> 공공데이터 API를 활용한 실시간 데이터 바인딩</span>을 구현했습니다.
           </p>
           <div className="flex flex-wrap justify-center gap-2 pt-8">
             {skillStack.map(skill => (
