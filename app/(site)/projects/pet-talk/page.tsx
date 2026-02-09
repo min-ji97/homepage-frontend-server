@@ -127,7 +127,7 @@ const PetTalkDetail = () => {
             </div>
           </div>
           <div className="text-neutral-400 space-y-6 max-w-3xl mx-auto border-t border-neutral-800 pt-8 text-center">
-            <p>• <strong>Soft Delete(논리 삭제) 전략</strong>: 물리적인 데이터 삭제 대신 <code>active = 'N'</code> 상태 값을 부여하여 데이터 복구 가능성과 정합성을 유지합니다.</p>
+            <p>• <strong>Soft Delete(논리 삭제) 전략</strong>: 물리적인 데이터 삭제 대신 {`active = 'N' `} 상태 값을 부여하여 데이터 복구 가능성과 정합성을 유지합니다.</p>
             <p>• <strong>데이터 무결성</strong>: 활성화된 데이터만을 필터링하여 사용자에게 제공함으로써 신뢰할 수 있는 정보를 관리합니다.</p>
           </div>
         </section>
