@@ -295,6 +295,9 @@ const PortfolioPage = () => {
               <div className="px-4 py-3 bg-neutral-900 rounded-lg border border-neutral-800">
                 AZ-900 : Microsoft Azure Fundamentals
               </div>
+              <div className="px-4 py-3 bg-neutral-900 rounded-lg border border-neutral-800">
+                DP-900: Microsoft Azure Data Fundamentals
+              </div>
             </div>
           </div>
 
